@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+void find_min_max_sequence(int numbers[], int size, int min_sequence[], int max_sequence[]) {
+    if (size == 0) {
+        return;
+    }
+
+    min_sequence[0] = numbers[0];
+    max_sequence[0] = numbers[0];
+    int current_min = numbers[0];
+    int current_max = numbers[0];
+
+    for (int i = 1; i < size; i++) {
+        current_min = (numbers[i] < current_min + numbers[i]) ? numbers[i] : current_min + numbers[i];
+        current_max = (numbers[i] > current_max + numbers[i]) ? numbers[i] : current_max + numbers[i];
+
+        min_sequence[i] = current_min;
+        max_sequence[i] = current_max;
+    }
+}
+
+int main() {
+    int numbers_list[] = {1, 2, 3, -2, 5};
+    int size = sizeof(numbers_list) / sizeof(numbers_list[0]);
+    int min_sequence[size];
+    int max_sequence[size];
+
+    find_min_max_sequence(numbers_list, size, min_sequence, max_sequence);
+
+    printf("Original List: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", numbers_list[i]);
+    }
+    printf("\n");
+
+    printf("Minimum Value Sequence: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", min_sequence[i]);
+    }
+    printf("\n");
+
+    printf("Maximum Value Sequence: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", max_sequence[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
